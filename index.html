@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>reCAPTCHA v3 Token Generator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>reCAPTCHA v3 Token Generator</h1>
+
+    <div class="info-box">
+      <p><strong>Note:</strong> Replace <code>YOUR_SITE_KEY</code> in the script tag below with your actual reCAPTCHA v3 site key.</p>
+      <p>Get your keys at: <a href="https://www.google.com/recaptcha/admin" target="_blank">Google reCAPTCHA Admin Console</a></p>
+    </div>
+
+    <div class="action-section">
+      <label for="action-name">Action Name:</label>
+      <input type="text" id="action-name" value="submit" placeholder="e.g., submit, login, purchase">
+      <button id="generate-btn">Generate Token</button>
+    </div>
+
+    <div id="loading" class="loading hidden">Generating token...</div>
+
+    <div id="result" class="result hidden">
+      <h3>Generated Token:</h3>
+      <div class="token-box">
+        <textarea id="token-display" readonly></textarea>
+        <button id="copy-btn">Copy Token</button>
+      </div>
+
+      <div class="curl-command">
+        <h3>Verify with cURL:</h3>
+        <pre><code>curl -X POST https://www.google.com/recaptcha/api/siteverify \
+  -d "secret=YOUR_SECRET_KEY" \
+  -d "response=<span id="token-placeholder">TOKEN_HERE</span>"</code></pre>
+        <button id="copy-curl-btn">Copy cURL Command</button>
+      </div>
+    </div>
+
+    <div id="error" class="error hidden"></div>
+  </div>
+
+  <!-- Replace YOUR_SITE_KEY with your actual reCAPTCHA v3 site key -->
+  <script src="https://www.google.com/recaptcha/api.js?render=YOUR_SITE_KEY"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
