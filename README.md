@@ -75,3 +75,37 @@ python -m http.server 8001
 
 # Then visit: http://localhost:8001
 ```
+
+## Deployment
+
+This project is configured to automatically deploy to GitHub Pages using GitHub Actions.
+
+### Enable GitHub Pages
+
+1. Go to your repository on GitHub
+2. Navigate to **Settings** → **Pages**
+3. Under **Source**, select **GitHub Actions**
+4. The workflow will automatically deploy on every push to the `main` branch
+
+### Deployment Workflow
+
+The GitHub Actions workflow (`.github/workflows/deploy.yml`) will:
+- Trigger on every push to `main` branch
+- Deploy the static files to GitHub Pages
+- Make your demo available at: `https://<your-username>.github.io/recaptcha-demo`
+
+### Manual Deployment
+
+You can also trigger a deployment manually:
+1. Go to **Actions** tab in your GitHub repository
+2. Select **Deploy to GitHub Pages** workflow
+3. Click **Run workflow**
+
+### Live Demo
+
+Once deployed, your site will be available at:
+```
+https://<your-username>.github.io/recaptcha-demo
+```
+
+**Note**: Make sure you've added your GitHub Pages domain to the reCAPTCHA allowed domains list (see Setup step 1.3).
