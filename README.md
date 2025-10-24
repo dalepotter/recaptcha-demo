@@ -11,6 +11,17 @@ reCAPTCHA v3 is Google's invisible CAPTCHA solution that returns a score (0.0-1.
 
 Unlike reCAPTCHA v2, v3 runs in the background and doesn't interrupt users with challenges.
 
+## Features
+
+- **Simple Interface**: Clean, modern UI with gradient background
+- **Custom Actions**: Specify different action names for different user interactions
+- **Token Generation**: Generate reCAPTCHA v3 tokens with a single click
+- **Copy to Clipboard**: Easy copy functionality for tokens and cURL commands
+- **cURL Command Template**: Pre-filled verification command with your generated token
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
+- **Error Handling**: Clear error messages and validation
+- **Auto-Deploy**: Automatic deployment to GitHub Pages via GitHub Actions
+
 ## Prerequisites
 
 To use this demo, you'll need:
