@@ -76,6 +76,69 @@ python -m http.server 8001
 # Then visit: http://localhost:8001
 ```
 
+## Usage
+
+### Generating Tokens
+
+1. Open the web page in your browser
+2. Enter an **Action Name** (or use the default "submit")
+   - Action names help you track different user interactions
+   - Examples: `login`, `checkout`, `contact`, `vote`
+   - Must contain only letters, numbers, underscores, and slashes
+3. Click **Generate Token**
+4. The reCAPTCHA v3 token will appear in the text area
+5. Use the **Copy Token** button to copy it to your clipboard
+
+### Verifying Tokens with cURL
+
+Once you have a token, verify it with Google's API using your **secret key**:
+
+```bash
+curl -X POST https://www.google.com/recaptcha/api/siteverify \
+  -d "secret=YOUR_SECRET_KEY" \
+  -d "response=YOUR_GENERATED_TOKEN"
+```
+
+**Example Response:**
+```json
+{
+  "success": true,
+  "challenge_ts": "2024-01-15T10:30:00Z",
+  "hostname": "localhost",
+  "score": 0.9,
+  "action": "submit"
+}
+```
+
+### Understanding the Response
+
+| Field | Description |
+|-------|-------------|
+| `success` | Whether the token is valid (`true` or `false`) |
+| `score` | A score between 0.0 (bot) and 1.0 (human) |
+| `action` | The action name you specified when generating the token |
+| `challenge_ts` | Timestamp of the challenge |
+| `hostname` | The hostname where the token was generated |
+| `error-codes` | Array of error codes (if `success` is `false`) |
+
+### Interpreting reCAPTCHA v3 Scores
+
+reCAPTCHA v3 returns a score based on interactions with your site:
+
+| Score Range | Interpretation | Recommended Action |
+|-------------|----------------|-------------------|
+| 0.9 - 1.0 | Very likely human | Allow without friction |
+| 0.7 - 0.8 | Likely human | Allow, maybe add minor verification |
+| 0.5 - 0.6 | Uncertain | Add additional verification (email, 2FA) |
+| 0.0 - 0.4 | Likely bot | Block or require strong verification |
+
+**Important Notes:**
+- There's no "passing" score - you decide the threshold for your use case
+- Scores can vary based on user behavior patterns
+- Google recommends using 0.5 as a starting threshold
+- Different actions can have different threshold requirements
+- Monitor your scores over time to adjust thresholds
+
 ## Deployment
 
 This project is configured to automatically deploy to GitHub Pages using GitHub Actions.
